@@ -1,0 +1,9 @@
+temp_storage.py
+.idea/
+__pycache__/
+*.py[cod]
+.env
+images/
+.DS_store
+plots.py
+clara_venv/
