@@ -162,9 +162,13 @@ class FunctionHolder(BaseModel):
                         "type": value.get("type"),
                         "description": value.get("description"),
                     }
-                new_schema["function"]["parameters"]["properties"][key] = _props
+                new_schema["function"]["parameters"]["properties"][
+                    key
+                ] = _props
 
-            new_schema["function"]["parameters"]["required"] = parameters["required"]
+            new_schema["function"]["parameters"]["required"] = parameters[
+                "required"
+            ]
 
         print(new_schema)
 
@@ -225,14 +229,20 @@ class InitVectorDB:
         # Boolean to check whether the query returned only one result
         single_response = False
 
-        query_results = self.collection.query(query_texts=[query], n_results=n_results)
+        query_results = self.collection.query(
+            query_texts=[query], n_results=n_results
+        )
 
         print(query_results)
 
         # Redefine logic to return only one query if the distance from the first and second result is too small using statistics
-        if (query_results["distances"][0][1] - query_results["distances"][0][0]) > 0.1:
+        if (
+            query_results["distances"][0][1] - query_results["distances"][0][0]
+        ) > 0.1:
             single_response = True
-            query_results = self.collection.query(query_texts=[query], n_results=1)
+            query_results = self.collection.query(
+                query_texts=[query], n_results=1
+            )
             return single_response, query_results
         elif n_results == 1:
             single_response = True
@@ -300,7 +310,9 @@ def _play_song():
 
 
 def new_task(param: FunctionInputTask):
-    return f"Task: {param.text} with {param.priority} is set to {param.date_time}"
+    return (
+        f"Task: {param.text} with {param.priority} is set to {param.date_time}"
+    )
 
 
 def weather_today(param: FunctionInput):
@@ -320,12 +332,12 @@ def translate_text(param: FunctionInputTranslation):
 
 
 def grocery_list_items(params: FunctionInputArray):
-    return (
-        f"I am going to {params.store}, the items in grocery list are: {params.item}."
-    )
+    return f"I am going to {params.store}, the items in grocery list are: {params.item}."
 
 
-launches_app = FunctionHolder(launch_spotify, description="Launches a spotify app.")
+launches_app = FunctionHolder(
+    launch_spotify, description="Launches a spotify app."
+)
 
 playing_song_ = FunctionHolder(
     _play_song,
@@ -350,7 +362,8 @@ todays_weather = FunctionHolder(
 )
 
 text_translation = FunctionHolder(
-    translate_text, description="Translate the text from one language to another"
+    translate_text,
+    description="Translate the text from one language to another",
 )
 
 todays_weather_ = FunctionHolder(
@@ -399,7 +412,9 @@ def get_response_from_openai(question):
         return response.choices[0].message.content
 
     if num_response is True:
-        function_metadata_name = query_result["metadatas"][0][0]["function_metadata"]
+        function_metadata_name = query_result["metadatas"][0][0][
+            "function_metadata"
+        ]
         print(function_metadata_name)
 
         if query_result:
@@ -448,16 +463,22 @@ def get_response_from_openai(question):
 
                 if tool_calls:
                     available_functions = {
-                        str(function_metadata_name): globals()[function_metadata_name],
+                        str(function_metadata_name): globals()[
+                            function_metadata_name
+                        ],
                     }
 
                     messages.append(response_message)
                     for tool_call in tool_calls:
                         function_name = tool_call.function.name
                         function_to_call = available_functions[function_name]
-                        function_args = json.loads(tool_call.function.arguments)
+                        function_args = json.loads(
+                            tool_call.function.arguments
+                        )
                         input_types = globals()[
-                            return_params_of_function(function_to_call)["title"]
+                            return_params_of_function(function_to_call)[
+                                "title"
+                            ]
                         ]
                         instance = input_types(**function_args)
 
@@ -488,11 +509,15 @@ def get_response_from_openai(question):
 
                 available_functions.update(
                     {
-                        str(function_metadata_name): globals()[function_metadata_name],
+                        str(function_metadata_name): globals()[
+                            function_metadata_name
+                        ],
                     }
                 )
 
-                tools.append(vectordb.return_openai_query(function_metadata_name))
+                tools.append(
+                    vectordb.return_openai_query(function_metadata_name)
+                )
 
             messages = []
             messages.append(
@@ -512,9 +537,13 @@ def get_response_from_openai(question):
             # Call the function explicitly if no args are given
             try:
                 function_args = (
-                    response.choices[0].message.tool_calls[0].function.arguments
+                    response.choices[0]
+                    .message.tool_calls[0]
+                    .function.arguments
                 )
-                function_name = response.choices[0].message.tool_calls[0].function.name
+                function_name = (
+                    response.choices[0].message.tool_calls[0].function.name
+                )
             except TypeError:
                 print(
                     "The agent wanted to know some details about your question, this is not implemented yet therefor it crashed"
@@ -542,9 +571,13 @@ def get_response_from_openai(question):
                     for tool_call in tool_calls:
                         function_name = tool_call.function.name
                         function_to_call = available_functions[function_name]
-                        function_args = json.loads(tool_call.function.arguments)
+                        function_args = json.loads(
+                            tool_call.function.arguments
+                        )
                         input_types = globals()[
-                            return_params_of_function(function_to_call)["title"]
+                            return_params_of_function(function_to_call)[
+                                "title"
+                            ]
                         ]
                         instance = input_types(**function_args)
 
@@ -588,9 +621,7 @@ def play_song(params: FunctionInputSong):
 
 
 def play_song_on_repeat(params: FunctionInputSongOR):
-    return (
-        f"The {params.song_name} will be played {params.repeat_time} times on spotify.."
-    )
+    return f"The {params.song_name} will be played {params.repeat_time} times on spotify.."
 
 
 def query_to_test(question: str, type: Type):
@@ -609,13 +640,17 @@ def test_function_no_args():
     )
     vectordb.insert_function_into_vectordb(playing_song)
 
-    query_to_test("Can you please play Walk n Skank by Macky gee on spotify", str)
+    query_to_test(
+        "Can you please play Walk n Skank by Macky gee on spotify", str
+    )
 
     vectordb.delete_record(playing_song.name)
 
 
 def test_function_w_args_string():
-    playing_song = FunctionHolder(play_song, description="Play a song on spotify")
+    playing_song = FunctionHolder(
+        play_song, description="Play a song on spotify"
+    )
 
     vectordb.insert_function_into_vectordb(playing_song)
 

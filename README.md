@@ -1,3 +1,5 @@
+[![Run pytest](https://github.com/Rankacy/CLaRa/actions/workflows/pytest.yml/badge.svg?branch=feat%2FCLR-1-Initial-commit)](https://github.com/Rankacy/CLaRa/actions/workflows/pytest.yml)
+
 # CLaRa: Cost-effective LLMs Function Calling Based on Vector Database
 
 This project serves as a coding base for the research of "Cost-effective LLMs Function Calling Based on Vector Database". 
