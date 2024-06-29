@@ -23,8 +23,8 @@ This project serves as a coding base for the research of "Cost-effective LLMs Fu
 
 ## Installation
 Make sure to install Python with the right version
-1. Clone project - ```git clone https://github.com/EsportDynamics/LLM_Research.git```
-2. Go to project - ```cd LLM_Research```
+1. Clone project - ```git clone https://github.com/Rankacy/CLaRa.git```
+2. Go to project - ```cd CLaRa```
 3. Crete new venv for the project - ```python3 -m venv {venv_name}```
 4. Activate venv - ```source {venv_name}/bin/activate```
 5. Install requirements ```pip install -r requirements.txt```
@@ -37,11 +37,11 @@ Run the with the debug button on top of your IDE or by ```python function_holder
 1. Create a new function by using either the **"shallow" function** or a **"pydantic" defined function**
 2. Wrap the function inside the FunctionHolder
 3. Insert the FunctionHolder into the vectorDB
-4. Create query
+4. Create a query
 5. Check the openai response
 
 Current functionality is defined as follows:
-1. If the similarity of 2 queries is not close enough, the closest function to your query will be executed, then the result will be given to GPT-model to form a "human-like" sentence
+1. If the similarity of 2 queries is not close enough, the closest function to your query will be executed, and then the result will be given to GPT-model to form a "human-like" sentence
 2. If the similarity of 2 queries is close, the functions are given to GPT-model, where the model picks the best match, and then gives you the output 
 
 ### Shallow function
