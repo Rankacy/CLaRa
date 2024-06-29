@@ -30,7 +30,7 @@ Make sure to install Python with the right version
 5. Install requirements ```pip install -r requirements.txt```
 
 ## Run
-Run the with the debug button on top of your IDE or by ```python function_holder.py```
+Run with the debug button on top of your IDE or by ```python function_holder.py```
 
 ## Usage
 
