@@ -1,0 +1,5 @@
+python-dotenv
+pydantic
+chromadb
+openai
+pytest
