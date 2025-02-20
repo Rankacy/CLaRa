@@ -97,3 +97,23 @@ Argument types tested together:
 | String + integer              | ✅    |
 | Enum + string                 | ✅    |
 | Enum + array                  | ✅    |
+
+## Citation
+You can cite the [CLaRa](https://mendel-journal.org/index.php/mendel/article/view/404/233) article.
+
+```bibtex
+@article{Szczypka_Jochymek_Martinková_2024,
+	title        = {CLaRA: Cost-effective LLMs Function Calling Based on Vector Database},
+	author       = {Szczypka, Miloslav and Jochymek, Lukáš and Martinková, Alena},
+	year         = 2024,
+	month        = {Jun.},
+	journal      = {MENDEL},
+	volume       = 30,
+	number       = 1,
+	pages        = {43--50},
+	doi          = {10.13164/mendel.2024.1.043},
+	url          = {https://mendel-journal.org/index.php/mendel/article/view/404}
+}
+
+```
+
